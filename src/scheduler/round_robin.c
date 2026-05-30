@@ -3,7 +3,7 @@
 /*
 Implementar:
 
-- quantum
+- quantum 
 - cola circular
 - reinserción
 - tiempos restantes
