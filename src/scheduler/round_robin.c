@@ -1,5 +1,5 @@
 #include "scheduler.h"
-
+#include <stdio.h>
 /*
 Implementar:
 
@@ -9,3 +9,6 @@ Implementar:
 - tiempos restantes
 - cambio de contexto
 */
+
+#define quantum 2
+
