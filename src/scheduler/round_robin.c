@@ -10,5 +10,3 @@ Implementar:
 - cambio de contexto
 */
 
-#define quantum 2
-
