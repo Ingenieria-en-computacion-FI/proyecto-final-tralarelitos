@@ -3,7 +3,9 @@
 #include "memory_manager.h"
 
 
-MemoryManager* mm_create(int total_memory) {
+MemoryManager* mm_create(
+     int total_memory
+){
      MemoryManager* mm = malloc(sizeof(MemoryManager));
      mm->total_memory  = total_memory;
 
@@ -20,7 +22,10 @@ MemoryManager* mm_create(int total_memory) {
 }
 
 
-int mm_allocate_best_fit(MemoryManager* mm, int size) {
+int mm_allocate_best_fit(
+     MemoryManager* mm, 
+     int size
+){
      MemoryBlock* best = NULL;
      MemoryBlock* cur  = mm->head;
      while (cur) {
@@ -49,7 +54,10 @@ int mm_allocate_best_fit(MemoryManager* mm, int size) {
      return best->start;
 }
 
-void mm_free(MemoryManager* mm, int pid) {
+void mm_free(
+     MemoryManager* mm, 
+     int pid
+){
      MemoryBlock* cur = mm->head;
      while (cur) {
          if (!cur->free && cur->pid == pid) {
@@ -61,7 +69,9 @@ void mm_free(MemoryManager* mm, int pid) {
     }
 }
 
-void mm_print(MemoryManager* mm) {
+void mm_print(
+     MemoryManager* mm
+){
      MemoryBlock* cur = mm->head;
      printf("[Memory Map] total=%d\n", mm->total_memory);
      while (cur) {
@@ -71,13 +81,15 @@ void mm_print(MemoryManager* mm) {
              cur->size,
              cur->free ? "FREE" : "USED",
              cur->pid
-            );
+        );
          cur = cur->next;
     }
 }
 
 
-void mm_destroy(MemoryManager* mm) {
+void mm_destroy(
+     MemoryManager* mm
+){
      MemoryBlock* cur = mm->head;
      while (cur) {
          MemoryBlock* tmp = cur->next;

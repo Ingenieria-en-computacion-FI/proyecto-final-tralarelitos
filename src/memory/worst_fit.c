@@ -21,32 +21,35 @@ MemoryManager* mm_create(
      return mm;
 }
 
-int mm_allocate_first_fit(
-    MemoryManager* mm,
-    int size
+int mm_allocate_worst_fit(
+     MemoryManager* mm,
+     int size
 ){
-     MemoryBlock* cur = mm->head;
+     MemoryBlock* worst = NULL;
+     MemoryBlock* cur   = mm->head;
      while (cur) {
          if (cur->free && cur->size >= size) {
-             if (cur->size > size) {
-                 MemoryBlock* rest = malloc(sizeof(MemoryBlock));
-                 rest->start = cur->start + size;
-                 rest->size  = cur->size  - size;
-                 rest->free  = 1;
-                 rest->pid   = -1;
-                 rest->next  = cur->next;
-                 rest->prev  = cur;
-                 if (cur->next) cur->next->prev = rest;
-                 cur->next   = rest;
-            }
-             cur->size = size;
-             cur->free = 0;
-             cur->pid  = size;
-             return cur->start;
+             if (!worst || cur->size > worst->size) worst = cur;
         }
          cur = cur->next;
     }
-     return -1;
+     if (!worst) return -1;
+
+     if (worst->size > size) {
+         MemoryBlock* rest = malloc(sizeof(MemoryBlock));
+         rest->start = worst->start + size;
+         rest->size  = worst->size  - size;
+         rest->free  = 1;
+         rest->pid   = -1;
+         rest->next  = worst->next;
+         rest->prev  = worst;
+         if (worst->next) worst->next->prev = rest;
+         worst->next  = rest;
+    }
+     worst->size = size;
+     worst->free = 0;
+     worst->pid  = size;
+     return worst->start;
 }
 
 void mm_free(
