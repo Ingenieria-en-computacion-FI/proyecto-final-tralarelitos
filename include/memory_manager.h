@@ -3,46 +3,64 @@
 
 typedef struct MemoryBlock {
 
-    int start;
+     int start;
 
-    int size;
+     int size;
 
-    int free;
+     int free;
 
-    int pid;
+     int pid;
 
-    struct MemoryBlock* next;
+     struct MemoryBlock* next;
 
-    struct MemoryBlock* prev;
+     struct MemoryBlock* prev;
 
 } MemoryBlock;
 
 typedef struct MemoryManager {
 
-    MemoryBlock* head;
+     MemoryBlock* head;
 
-    int total_memory;
+     int total_memory;
 
 } MemoryManager;
 
 MemoryManager* mm_create(int total_memory);
 
 int mm_allocate_first_fit(
-    MemoryManager* mm,
-    int size
+     MemoryManager* mm,
+     int size
+);
+
+int  mm_allocate_best_fit(
+     MemoryManager* mm, 
+     int size
+);
+
+int  mm_allocate_worst_fit(
+     MemoryManager* mm,
+     int size
 );
 
 void mm_free(
-    MemoryManager* mm,
-    int pid
+     MemoryManager* mm,
+     int pid
 );
 
 void mm_coalesce(
-    MemoryManager* mm
+     MemoryManager* mm
+);
+
+void mm_compact(
+     MemoryManager* mm
+);
+
+void mm_print(
+     MemoryManager* mm
 );
 
 void mm_destroy(
-    MemoryManager* mm
+     MemoryManager* mm
 );
 
 #endif
