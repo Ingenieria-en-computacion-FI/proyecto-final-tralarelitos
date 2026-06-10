@@ -2,35 +2,61 @@
 #include <stdlib.h>
 #include "stack.h"
 
-struct Node {
-    int value;
-    struct Node* next;
-};
+typedef struct Node {
+     int value;
+     struct Node* next;
+} Node;
 
 struct Stack {
-    struct Node* top;
+     Node* top;
+     int size;
 };
 
+
 Stack* stack_create() {
-    Stack* stack = malloc(sizeof(Stack));
-    stack->top = NULL;
-    return stack;
+     Stack* s = malloc(sizeof(Stack));
+     s->top = NULL;
+     s->size = 0;
+    return s;
 }
 
-void stack_push(Stack* stack, int value) {
+
+void stack_push(Stack* s, int value) {
+     Node* n = malloc(sizeof(Node));
+     n->value = value;
+     n->next = s->top;
+     s->top = n;
+     s->size++;
 }
 
-int stack_pop(Stack* stack) {
-    return -1;
+
+int stack_pop(Stack* s) {
+      if (!s->top){ 
+           return -1;
+     }
+      Node* tmp = s->top;
+      int val = tmp->value;
+      s->top = tmp->next;
+      free(tmp);
+      s->size--;
+      return val;
 }
 
-int stack_peek(Stack* stack) {
-    return -1;
+
+int stack_peek(Stack* s) {
+      if (!s->top){
+           return -1;
+     }
+      return s->top->value;
 }
 
-int stack_is_empty(Stack* stack) {
-    return 1;
+int stack_is_empty(Stack* s) {
+      return s->top == NULL;
 }
 
-void stack_destroy(Stack* stack) {
+void stack_destroy(Stack* s) {
+      while (!stack_is_empty(s)){
+           stack_pop(s);
+     }
+      free(s);
 }
