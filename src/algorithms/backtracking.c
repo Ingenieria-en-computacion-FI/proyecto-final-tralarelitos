@@ -14,11 +14,11 @@ void bt_save_state(int* state, int n) {
 }
 
 int bt_restore_state(int* state, int n) {
-    if (!history || stack_is_empty(history)) return 0;
-    int*  snap   = (int*)(size_t)stack_pop(history);
-    int   saved_n = snap[0];
-    int   copy_n  = saved_n < n ? saved_n : n;
-    memcpy(state, snap + 1, sizeof(int) * copy_n);
-    free(snap);
-    return 1;
+     if (!history || stack_is_empty(history)) return 0;
+     int*  snap   = (int*)(size_t)stack_pop(history);
+     int   saved_n = snap[0];
+     int   copy_n  = saved_n < n ? saved_n : n;
+     memcpy(state, snap + 1, sizeof(int) * copy_n);
+     free(snap);
+     return 1;
 }

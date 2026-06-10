@@ -1,7 +1,7 @@
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
 
-int fb_find_first_free_block(
+int bf_find_first_free_block(
      int* blocks, 
      int n, 
      int requiered
