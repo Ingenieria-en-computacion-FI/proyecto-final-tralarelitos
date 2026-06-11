@@ -32,7 +32,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()import random
+    main()
+import random
 import csv
 import sys
 import os
