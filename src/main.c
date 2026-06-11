@@ -63,9 +63,9 @@ static void demo_memory() {
      printf("\nAfter freeing P1 and P3:\n");
      mm_print(mm);
 
-     mm_coalesce(mm);
-     printf("\nAfter coalescence:\n");
-     mm_print(mm);
+     //mm_coalesce(mm);
+     //printf("\nAfter coalescence:\n");
+     //mm_print(mm);
  
      mm_destroy(mm);
 }
@@ -96,15 +96,29 @@ static void demo_finished_list() {
 
 
 int main(int argc, char* argv[]) {
-     printf("╔═════════════════════════════════════╗\n");
-     printf("║   Mini OS Simulator – Tralaleritos  ║\n");
-     printf("╚═════════════════════════════════════╝\n");
+      printf("╔═════════════════════════════════════╗\n");
+      printf("║   Mini OS Simulator – Tralaleritos  ║\n");
+      printf("╚═════════════════════════════════════╝\n");
 
-     int n_processes = argc > 1 ? atoi(argv[1]) : 0;
-     (void)n_processes;
+      if (argc > 1) {
+          int n_processes = atoi(argv[1]);
+          printf("[INFO] Modo Benchmark: Simulando %d procesos desde CSV...\n", n_processes);
 
-     timer_start();
+          timer_start();
 
+          Process* lista_procesos = (Process*)malloc(n_processes * sizeof(Process));
+
+          parser_load_processes("data/inputs/processes.csv", lista_procesos, n_processes);
+          
+          printf("[OK] Finalizado en: %.2f ms\n", timer_elapsed_ms());
+          free(lista_procesos);
+          return 0;
+      }
+     
+
+
+
+      timer_start();
      
      demo_stack_history();
      demo_fifo();
