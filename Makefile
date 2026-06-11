@@ -13,7 +13,7 @@ run:
 
 test:
 	mkdir -p bin
-	$(CC) $(CFLAGS) $(TESTS) $(SRC) -o bin/tests
+	$(CC) $(CFLAGS) $(TESTS) $(filter-out src/main.c, $(SRC)) -o bin/tests
 	./bin/tests
 
 clean:
