@@ -105,6 +105,7 @@ int main(int argc, char* argv[]) {
 
      timer_start();
 
+     
      demo_stack_history();
      demo_fifo();
      demo_round_robin();
